@@ -5,48 +5,49 @@ import {
   Post,
   ConflictException,
   UsePipes,
-} from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { hash } from 'bcryptjs';
-import { z } from 'zod';
-import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe';
+} from '@nestjs/common'; // Importa os decoradores e exceções necessários do pacote '@nestjs/common'.
+import { PrismaService } from 'src/prisma/prisma.service'; // Importa o serviço Prisma.
+import { hash } from 'bcryptjs'; // Importa a função 'hash' do pacote 'bcryptjs' para criptografar senhas.
+import { z } from 'zod'; // Importa a biblioteca 'zod' para validação de esquemas.
+import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
 
 const createAccountBodySchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  password: z.string(),
+  name: z.string(), // Define que o campo 'name' deve ser uma string.
+  email: z.string().email(), // Define que o campo 'email' deve ser uma string contendo um e-mail válido.
+  password: z.string(), // Define que o campo 'password' deve ser uma string.
 });
 
-type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>;
+type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>; // Define um tipo 'CreateAccountBodySchema' inferido a partir do schema 'createAccountBodySchema'.
 
-@Controller('/accounts')
+@Controller('/accounts') // Declara a classe como um controlador responsável pelo endpoint '/accounts'.
 export class CreateAccountController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {} // Construtor que aceita uma instância do serviço Prisma.
 
-  @Post()
-  @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createAccountBodySchema))
+  @Post() // Declara que este método responde a requisições HTTP POST.
+  @HttpCode(201) // Define o código de status HTTP para 201 (Created).
+  @UsePipes(new ZodValidationPipe(createAccountBodySchema)) // Aplica o pipe de validação baseado no schema 'createAccountBodySchema'.
   async handle(@Body() body: CreateAccountBodySchema) {
+    // Método que lida com a requisição, recebendo o corpo da requisição validado.
     const { name, email, password } = body;
 
     const userWithSameEmail = await this.prisma.user.findUnique({
       where: {
         email,
       },
-    });
+    }); // Verifica se já existe um usuário com o mesmo e-mail no banco de dados.
 
     if (userWithSameEmail) {
-      throw new ConflictException('User with same e-mail already exists.');
+      throw new ConflictException('User with same e-mail already exists.'); // Lança uma exceção de conflito se o e-mail já estiver em uso.
     }
 
-    const hashPassword = await hash(password, 8);
+    const hashPassword = await hash(password, 8); // Criptografa a senha fornecida.
 
     return this.prisma.user.create({
       data: {
         name,
         email,
-        password: hashPassword,
+        password: hashPassword, // Armazena a senha criptografada.
       },
-    });
+    }); // Cria um novo usuário no banco de dados com os dados fornecidos.
   }
 }
