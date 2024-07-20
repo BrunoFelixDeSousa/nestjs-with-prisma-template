@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config'; // Importa o módulo de configuração do pacote '@nestjs/config'.
 import { PrismaService } from './prisma/prisma.service';
 import { CreateAccountController } from './controllers/create-account.controller';
-import { envSchema } from './env';
-import { AuthModule } from './auth/auth.module';
-import { AuthenticateController } from './controllers/authenticate.controller';
+import { envSchema } from './env'; // Importa o schema de validação do ambiente do arquivo 'env.ts'.
+import { AuthModule } from './auth/auth.module'; // Importa o módulo de autenticação do caminho especificado.
+import { AuthenticateController } from './controllers/authenticate.controller'; // Importa o controlador AuthenticateController do caminho especificado.
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      validate: (env) => envSchema.parse(env),
-      isGlobal: true,
+      validate: (env) => envSchema.parse(env), // Valida as variáveis de ambiente usando o schema 'envSchema'.
+      isGlobal: true, // Define o módulo de configuração como global, tornando-o acessível em toda a aplicação.
     }),
-    AuthModule,
+    AuthModule, // Importa o módulo de autenticação.
   ],
-  controllers: [CreateAccountController, AuthenticateController],
-  providers: [PrismaService],
+  controllers: [CreateAccountController, AuthenticateController], // Registra os controladores 'CreateAccountController' e 'AuthenticateController'.
+  providers: [PrismaService], // Registra o serviço 'PrismaService' como provedor.
 })
-export class AppModule {}
+export class AppModule {} // Define a classe 'AppModule' como um módulo do NestJS.
