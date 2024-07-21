@@ -1,26 +1,27 @@
-import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { Env } from 'src/env';
+import { Module } from '@nestjs/common'; // Importa o decorador 'Module' do pacote '@nestjs/common'.
+import { ConfigService } from '@nestjs/config'; // Importa o serviço de configuração do pacote '@nestjs/config'.
+import { JwtModule } from '@nestjs/jwt'; // Importa o módulo JWT do pacote '@nestjs/jwt'.
+import { PassportModule } from '@nestjs/passport'; // Importa o módulo Passport do pacote '@nestjs/passport'.
+import { Env } from 'src/env'; // Importa o tipo 'Env' do caminho especificado.
 
 @Module({
   imports: [
-    PassportModule,
+    PassportModule, // Importa o módulo Passport para autenticação.
     JwtModule.registerAsync({
-      inject: [ConfigService],
-      global: true,
+      inject: [ConfigService], // Injeta o serviço de configuração.
+      global: true, // Define o módulo JWT como global, tornando-o acessível em toda a aplicação.
       useFactory(config: ConfigService<Env, true>) {
-        const privateKey = config.get('JWT_PRIVATE_KEY', { infer: true });
-        const publicKey = config.get('JWT_PUBLIC_KEY', { infer: true });
+        // Usa uma fábrica para configurar o módulo JWT de forma assíncrona.
+        const privateKey = config.get('JWT_PRIVATE_KEY', { infer: true }); // Obtém a chave privada das variáveis de ambiente, inferindo seu tipo.
+        const publicKey = config.get('JWT_PUBLIC_KEY', { infer: true }); // Obtém a chave pública das variáveis de ambiente, inferindo seu tipo.
 
         return {
-          signOptions: { algorithm: 'RS256' },
-          privateKey: Buffer.from(privateKey, 'base64'),
-          publicKey: Buffer.from(publicKey, 'base64'),
+          signOptions: { algorithm: 'RS256' }, // Define a opção de assinatura usando o algoritmo 'RS256'.
+          privateKey: Buffer.from(privateKey, 'base64'), // Converte a chave privada de base64 para um buffer.
+          publicKey: Buffer.from(publicKey, 'base64'), // Converte a chave pública de base64 para um buffer.
         };
       },
     }),
   ],
 })
-export class AuthModule {}
+export class AuthModule {} // Declara e exporta a classe 'AuthModule' como um módulo do NestJS.
