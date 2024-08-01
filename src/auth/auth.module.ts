@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common'; // Importa o decorador 'Module' do paco
 import { ConfigService } from '@nestjs/config'; // Importa o serviço de configuração do pacote '@nestjs/config'.
 import { JwtModule } from '@nestjs/jwt'; // Importa o módulo JWT do pacote '@nestjs/jwt'.
 import { PassportModule } from '@nestjs/passport'; // Importa o módulo Passport do pacote '@nestjs/passport'.
+import { AuthenticateController } from 'src/controllers/authenticate.controller';
+import { CreateAccountController } from 'src/controllers/create-account.controller';
 import { Env } from 'src/env'; // Importa o tipo 'Env' do caminho especificado.
+import { PrismaService } from 'src/common/prisma/prisma.service';
 
 @Module({
   imports: [
@@ -23,5 +26,7 @@ import { Env } from 'src/env'; // Importa o tipo 'Env' do caminho especificado.
       },
     }),
   ],
+  controllers: [CreateAccountController, AuthenticateController],
+  providers: [PrismaService], // Registra o serviço 'PrismaService' como provedor.
 })
 export class AuthModule {} // Declara e exporta a classe 'AuthModule' como um módulo do NestJS.

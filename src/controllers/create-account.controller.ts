@@ -6,15 +6,22 @@ import {
   ConflictException,
   UsePipes,
 } from '@nestjs/common'; // Importa os decoradores e exceções necessários do pacote '@nestjs/common'.
-import { PrismaService } from 'src/prisma/prisma.service'; // Importa o serviço Prisma.
+import { PrismaService } from 'src/common/prisma/prisma.service'; // Importa o serviço Prisma.
 import { hash } from 'bcryptjs'; // Importa a função 'hash' do pacote 'bcryptjs' para criptografar senhas.
 import { z } from 'zod'; // Importa a biblioteca 'zod' para validação de esquemas.
-import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
+import { ZodValidationPipe } from 'src/common/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
 
+// const createAccountBodySchema = z.object({
+//   name: z.string(), // Define que o campo 'name' deve ser uma string.
+//   email: z.string().email(), // Define que o campo 'email' deve ser uma string contendo um e-mail válido.
+//   password: z.string(), // Define que o campo 'password' deve ser uma string.
+// });
+
+// Definindo o esquema de validação do corpo da requisição
 const createAccountBodySchema = z.object({
-  name: z.string(), // Define que o campo 'name' deve ser uma string.
-  email: z.string().email(), // Define que o campo 'email' deve ser uma string contendo um e-mail válido.
-  password: z.string(), // Define que o campo 'password' deve ser uma string.
+  name: z.string().nonempty('Name is required'), // Adiciona uma mensagem de erro para o campo 'name'.
+  email: z.string().email('Invalid email format'), // Adiciona uma mensagem de erro para o campo 'email'.
+  password: z.string().min(8, 'Password must be at least 8 characters long'), // Adiciona uma validação mínima para o campo 'password'.
 });
 
 type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>; // Define um tipo 'CreateAccountBodySchema' inferido a partir do schema 'createAccountBodySchema'.
@@ -40,13 +47,13 @@ export class CreateAccountController {
       throw new ConflictException('User with same e-mail already exists.'); // Lança uma exceção de conflito se o e-mail já estiver em uso.
     }
 
-    const hashPassword = await hash(password, 8); // Criptografa a senha fornecida.
+    const hashedPassword = await hash(password, 8); // Criptografa a senha fornecida.
 
     return this.prisma.user.create({
       data: {
         name,
         email,
-        password: hashPassword, // Armazena a senha criptografada.
+        password: hashedPassword, // Armazena a senha criptografada.
       },
     }); // Cria um novo usuário no banco de dados com os dados fornecidos.
   }

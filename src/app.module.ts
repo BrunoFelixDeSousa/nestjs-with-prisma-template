@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config'; // Importa o módulo de configuração do pacote '@nestjs/config'.
-import { PrismaService } from './prisma/prisma.service';
-import { CreateAccountController } from './controllers/create-account.controller';
+import { PrismaService } from './common/prisma/prisma.service';
+
 import { envSchema } from './env'; // Importa o schema de validação do ambiente do arquivo 'env.ts'.
 import { AuthModule } from './auth/auth.module'; // Importa o módulo de autenticação do caminho especificado.
-import { AuthenticateController } from './controllers/authenticate.controller'; // Importa o controlador AuthenticateController do caminho especificado.
+
+import { CreateQuestionController } from './controllers/create-question.controller';
 
 @Module({
   imports: [
@@ -14,7 +15,11 @@ import { AuthenticateController } from './controllers/authenticate.controller'; 
     }),
     AuthModule, // Importa o módulo de autenticação.
   ],
-  controllers: [CreateAccountController, AuthenticateController], // Registra os controladores 'CreateAccountController' e 'AuthenticateController'.
+  controllers: [
+    // CreateAccountController,
+    // AuthenticateController,
+    CreateQuestionController,
+  ],
   providers: [PrismaService], // Registra o serviço 'PrismaService' como provedor.
 })
 export class AppModule {} // Define a classe 'AppModule' como um módulo do NestJS.

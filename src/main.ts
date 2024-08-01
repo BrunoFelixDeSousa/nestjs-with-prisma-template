@@ -4,7 +4,9 @@ import { ConfigService } from '@nestjs/config'; // Importa o serviço de configu
 import { Env } from './env'; // Importa o tipo 'Env' definido no arquivo 'env'.
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule); // Cria a aplicação NestJS usando o módulo principal 'AppModule'.
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'debug', 'warn', 'log', 'fatal', 'verbose'],
+  }); // Cria a aplicação NestJS usando o módulo principal 'AppModule'.
 
   const configService = app.get<ConfigService<Env, true>>(ConfigService); // Obtém uma instância do serviço de configuração com o tipo 'ConfigService' parametrizado com 'Env'.
   const port = configService.get('PORT', { infer: true }); // Obtém a porta da configuração, inferindo o tipo da variável.
