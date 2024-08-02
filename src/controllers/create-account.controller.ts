@@ -11,15 +11,9 @@ import { hash } from 'bcryptjs'; // Importa a função 'hash' do pacote 'bcryptj
 import { z } from 'zod'; // Importa a biblioteca 'zod' para validação de esquemas.
 import { ZodValidationPipe } from 'src/common/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
 
-// const createAccountBodySchema = z.object({
-//   name: z.string(), // Define que o campo 'name' deve ser uma string.
-//   email: z.string().email(), // Define que o campo 'email' deve ser uma string contendo um e-mail válido.
-//   password: z.string(), // Define que o campo 'password' deve ser uma string.
-// });
-
 // Definindo o esquema de validação do corpo da requisição
 const createAccountBodySchema = z.object({
-  name: z.string().nonempty('Name is required'), // Adiciona uma mensagem de erro para o campo 'name'.
+  name: z.string().min(1, 'Name is required'), // Adiciona uma mensagem de erro para o campo 'name'.
   email: z.string().email('Invalid email format'), // Adiciona uma mensagem de erro para o campo 'email'.
   password: z.string().min(8, 'Password must be at least 8 characters long'), // Adiciona uma validação mínima para o campo 'password'.
 });
