@@ -12,11 +12,13 @@ import { z } from 'zod'; // Importa a biblioteca 'zod' para validação de esque
 import { ZodValidationPipe } from 'src/common/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
 
 // Definindo o esquema de validação do corpo da requisição
-const createAccountBodySchema = z.object({
-  name: z.string().min(1, 'Name is required'), // Adiciona uma mensagem de erro para o campo 'name'.
-  email: z.string().email('Invalid email format'), // Adiciona uma mensagem de erro para o campo 'email'.
-  password: z.string().min(8, 'Password must be at least 8 characters long'), // Adiciona uma validação mínima para o campo 'password'.
-});
+const createAccountBodySchema = z
+  .object({
+    name: z.string().min(1, 'Name is required'), // Adiciona uma mensagem de erro para o campo 'name'.
+    email: z.string().email('Invalid email format'), // Adiciona uma mensagem de erro para o campo 'email'.
+    password: z.string().min(8, 'Password must be at least 8 characters long'), // Adiciona uma validação mínima para o campo 'password'.
+  })
+  .required();
 
 type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>; // Define um tipo 'CreateAccountBodySchema' inferido a partir do schema 'createAccountBodySchema'.
 
