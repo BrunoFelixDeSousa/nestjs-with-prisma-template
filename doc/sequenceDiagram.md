@@ -1,7 +1,7 @@
+# Fluxo de autenticação no método handle da classe AuthenticateController
+
 ```mermaid
     sequenceDiagram
-        title fluxo de autenticação no método handle da classe AuthenticateController.
-
         participant Client
         participant AuthenticateController
         participant PrismaService
@@ -28,6 +28,4 @@
                 end
             end
         end
-
-
 ```

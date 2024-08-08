@@ -2,7 +2,7 @@
 
 Este guia descreve como gerar um par de chaves RSA de 2048 bits utilizando OpenSSL.
 
-## Passo 1: Instalar OpenSSL (se não estiver instalado):
+## Passo 1: Instalar OpenSSL (se não estiver instalado)
 
 ```bash
 sudo apt-get install openssl   # Para distribuições baseadas em Debian/Ubuntu
@@ -36,7 +36,6 @@ Após executar os comandos acima, você terá dois arquivos:
 Certifique-se de armazenar a chave privada (`private_key.pem`) em um local seguro, pois ela é necessária para a descriptografia e deve ser mantida confidencial.
 
 A chave pública (`public_key.pem`) pode ser compartilhada com qualquer pessoa que precise criptografar dados para você.
-
 
 ## Converter a chave privada (private_key.pem) para Base64
 
