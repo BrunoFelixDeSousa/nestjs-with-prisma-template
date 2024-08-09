@@ -6,12 +6,12 @@ import { Env } from 'src/env';
 import { z } from 'zod';
 
 // Definindo um schema de validação para o payload do JWT usando Zod
-const tokenSchema = z.object({
+const tokenPayloadSchema = z.object({
   sub: z.string().uuid(), // O campo 'sub' deve ser uma string com formato UUID
 });
 
 // Tipagem para o schema de token, baseada na inferência de tipos do Zod
-type TokeSchema = z.infer<typeof tokenSchema>;
+export type UserPayload = z.infer<typeof tokenPayloadSchema>;
 
 @Injectable()
 // Implementação da estratégia JWT com a biblioteca Passport
@@ -29,8 +29,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   // Método chamado automaticamente para validar o payload do JWT
-  async validate(payload: TokeSchema) {
+  async validate(payload: UserPayload) {
     // Valida o payload do token de acordo com o schema definido
-    return tokenSchema.parse(payload);
+    return tokenPayloadSchema.parse(payload);
   }
 }
