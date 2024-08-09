@@ -6,6 +6,7 @@ import { AuthenticateController } from 'src/controllers/authenticate.controller'
 import { CreateAccountController } from 'src/controllers/create-account.controller';
 import { Env } from 'src/env'; // Importa o tipo 'Env' do caminho especificado.
 import { PrismaService } from 'src/common/prisma/prisma.service';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
     }),
   ],
   controllers: [CreateAccountController, AuthenticateController],
-  providers: [PrismaService], // Registra o serviço 'PrismaService' como provedor.
+  providers: [PrismaService, JwtStrategy], // Registra o serviço 'PrismaService' como provedor.
 })
 export class AuthModule {} // Declara e exporta a classe 'AuthModule' como um módulo do NestJS.
