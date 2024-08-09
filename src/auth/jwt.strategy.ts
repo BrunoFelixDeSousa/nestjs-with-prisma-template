@@ -22,13 +22,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     // Configura a estratégia JWT
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Extrai o JWT do cabeçalho de autorização
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Extrai o JWT do cabeçalho de autorização do Bearer Token
       secretOrKey: Buffer.from(publicKey, 'base64'), // Decodifica a chave pública de base64 para um buffer
-      algorithms: ['RS256'], // Define o algoritmo de assinatura como RS256
+      algorithms: ['RS256'], // Define o algoritmo de assinatura como RS256 para a validação do JWT
     });
   }
 
-  // Método chamado automaticamente para validar o payload do JWT
+  // Método chamado automaticamente para validar o payload do JWT após o token ser decodificado
   async validate(payload: UserPayload) {
     // Valida o payload do token de acordo com o schema definido
     return tokenPayloadSchema.parse(payload);
