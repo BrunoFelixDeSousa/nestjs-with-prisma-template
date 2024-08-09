@@ -20,8 +20,8 @@ POST {{baseUrl}}/sessions HTTP/1.1
 content-type: application/json
 
 {
-    "email": "bruno@gmail.com",
-    "password": "123456"
+    "email": "isaac@gmail.com",
+    "password": "654321"
 }
 
 ###
@@ -32,7 +32,13 @@ content-type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-    "title": "Principais Decorator do Nest.JS?",
-    "content": "@Body(), @Param(), @Query(), @Req()"
+    "title": "Node",
+    "content": "Node por de baixo dos panos"
 }
 
+###
+
+# @name fetch_recent_questions
+GET {{baseUrl}}/questions HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{authToken}}

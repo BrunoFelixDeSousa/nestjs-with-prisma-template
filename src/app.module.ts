@@ -6,6 +6,7 @@ import { envSchema } from './env'; // Importa o schema de validação do ambient
 import { AuthModule } from './auth/auth.module'; // Importa o módulo de autenticação do caminho especificado.
 
 import { CreateQuestionController } from './controllers/create-question.controller';
+import { FetchRecenteQuestionController } from './controllers/fetch-recent-questions.controller';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CreateQuestionController } from './controllers/create-question.controll
     // CreateAccountController,
     // AuthenticateController,
     CreateQuestionController,
+    FetchRecenteQuestionController,
   ],
   providers: [PrismaService], // Registra o serviço 'PrismaService' como provedor.
 })
