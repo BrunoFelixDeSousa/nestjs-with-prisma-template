@@ -20,7 +20,10 @@ import { JwtStrategy } from './jwt.strategy';
         const publicKey = config.get('JWT_PUBLIC_KEY', { infer: true }); // Obtém a chave pública das variáveis de ambiente, inferindo seu tipo.
 
         return {
-          signOptions: { algorithm: 'RS256' }, // Define a opção de assinatura usando o algoritmo 'RS256'.
+          signOptions: {
+            algorithm: 'RS256', // Define a opção de assinatura usando o algoritmo 'RS256'.
+            expiresIn: '1d', // Tempo para expiração do token jwt definido.
+          }, // Define a opção de assinatura usando o algoritmo 'RS256'.
           privateKey: Buffer.from(privateKey, 'base64'), // Converte a chave privada de base64 para um buffer.
           publicKey: Buffer.from(publicKey, 'base64'), // Converte a chave pública de base64 para um buffer.
         };
