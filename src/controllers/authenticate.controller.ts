@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common'; // Importa os decoradores e exceções necessários do pacote '@nestjs/common'.
 import { JwtService } from '@nestjs/jwt'; // Importa o serviço JWT do pacote '@nestjs/jwt'.
 import { compare } from 'bcryptjs'; // Importa a função 'compare' do pacote 'bcryptjs' para comparar senhas.
-import { ZodValidationPipe } from 'src/common/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
-import { PrismaService } from 'src/common/prisma/prisma.service'; // Importa o serviço Prisma do caminho especificado.
+import { ZodValidationPipe } from '@/common/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
+import { PrismaService } from '@/common/prisma/prisma.service'; // Importa o serviço Prisma do caminho especificado.
 import { z } from 'zod'; // Importa a biblioteca 'zod' para validação de esquemas.
 
 const authenticateBodySchema = z.object({
