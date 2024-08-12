@@ -1,9 +1,9 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common'; // Importa os decoradores e exceções necessários do pacote '@nestjs/common'.
-import { CurrentUser } from '@/auth/current-user.decorator'; // Importa o decorator personalizado para obter o usuário atual da requisição.
-import { JwtAuthGuard } from '@/auth/jwt-auth.guard'; // Importa o guard de autenticação JWT.
-import { UserPayload } from '@/auth/jwt.strategy'; // Importa a tipagem do payload do JWT.
-import { ZodValidationPipe } from '@/common/pipes/zod-validation-pipe'; // Importa um Pipe personalizado para validação usando Zod.
-import { PrismaService } from '@/common/prisma/prisma.service'; // Importa o serviço Prisma para interações com o banco de dados.
+import { CurrentUser } from 'src/auth/current-user.decorator'; // Importa o decorator personalizado para obter o usuário atual da requisição.
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'; // Importa o guard de autenticação JWT.
+import { UserPayload } from 'src/auth/jwt.strategy'; // Importa a tipagem do payload do JWT.
+import { ZodValidationPipe } from 'src/common/pipes/zod-validation-pipe'; // Importa um Pipe personalizado para validação usando Zod.
+import { PrismaService } from 'src/common/prisma/prisma.service'; // Importa o serviço Prisma para interações com o banco de dados.
 import { z } from 'zod'; // Importa o Zod para validação de dados.
 
 // Define o schema de validação do corpo da requisição utilizando Zod

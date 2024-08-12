@@ -6,10 +6,10 @@ import {
   ConflictException,
   UsePipes,
 } from '@nestjs/common'; // Importa os decoradores e exceções necessários do pacote '@nestjs/common'.
-import { PrismaService } from '@/common/prisma/prisma.service'; // Importa o serviço Prisma.
+import { PrismaService } from 'src/common/prisma/prisma.service'; // Importa o serviço Prisma.
 import { hash } from 'bcryptjs'; // Importa a função 'hash' do pacote 'bcryptjs' para criptografar senhas.
 import { z } from 'zod'; // Importa a biblioteca 'zod' para validação de esquemas.
-import { ZodValidationPipe } from '@/common/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
+import { ZodValidationPipe } from 'src/common/pipes/zod-validation-pipe'; // Importa o pipe de validação personalizado baseado em Zod.
 
 // Definindo o esquema de validação do corpo da requisição
 const createAccountBodySchema = z
