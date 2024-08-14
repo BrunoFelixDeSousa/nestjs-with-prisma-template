@@ -30,3 +30,10 @@ model Question {
 
   @@map("questions")
 }
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+}
