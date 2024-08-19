@@ -5,6 +5,7 @@ import {
   Post,
   ConflictException,
   UsePipes,
+  HttpStatus,
 } from '@nestjs/common'; // Importa os decoradores e exceções necessários do pacote '@nestjs/common'.
 import { PrismaService } from 'src/common/prisma/prisma.service'; // Importa o serviço Prisma.
 import { hash } from 'bcryptjs'; // Importa a função 'hash' do pacote 'bcryptjs' para criptografar senhas.
@@ -27,7 +28,7 @@ export class CreateAccountController {
   constructor(private readonly prisma: PrismaService) {} // Construtor que aceita uma instância do serviço Prisma.
 
   @Post() // Declara que este método responde a requisições HTTP POST.
-  @HttpCode(201) // Define o código de status HTTP para 201 (Created).
+  @HttpCode(HttpStatus.CREATED) // Define o código de status HTTP para 201 (Created).
   @UsePipes(new ZodValidationPipe(createAccountBodySchema)) // Aplica o pipe de validação baseado no schema 'createAccountBodySchema'.
   async handle(@Body() body: CreateAccountBodySchema) {
     // Método que lida com a requisição, recebendo o corpo da requisição validado.

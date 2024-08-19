@@ -1,4 +1,11 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'; // Importa os decoradores e exceções necessários do pacote '@nestjs/common'.
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common'; // Importa os decoradores e exceções necessários do pacote '@nestjs/common'.
 import { CurrentUser } from 'src/auth/current-user.decorator'; // Importa o decorator personalizado para obter o usuário atual da requisição.
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'; // Importa o guard de autenticação JWT.
 import { UserPayload } from 'src/auth/jwt.strategy'; // Importa a tipagem do payload do JWT.
@@ -24,6 +31,7 @@ export class CreateQuestionController {
   constructor(private readonly prisma: PrismaService) {} // Injeta o serviço Prisma para manipulação de dados no banco.
 
   @Post() // Declara que este método responde a requisições HTTP POST.
+  @HttpCode(HttpStatus.CREATED)
   async handle(
     // @Body(new ZodValidationPipe(createQuestionBodySchema))
     // body: CreateQuestionBodySchema,

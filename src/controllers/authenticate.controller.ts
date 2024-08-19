@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   HttpCode,
+  HttpStatus,
   Post,
   UnauthorizedException,
   UsePipes,
@@ -27,7 +28,7 @@ export class AuthenticateController {
   ) {}
 
   @Post() // Declara que este método responde a requisições HTTP POST.
-  @HttpCode(201) // Define o código de status HTTP para 201 (Created).
+  @HttpCode(HttpStatus.CREATED) // Define o código de status HTTP para 201 (Created).
   @UsePipes(new ZodValidationPipe(authenticateBodySchema)) // Aplica o pipe de validação baseado no schema 'authenticateBodySchema'.
   async handle(@Body() body: AuthenticateBodySchema) {
     // Método que lida com a requisição, recebendo o corpo da requisição validado.
