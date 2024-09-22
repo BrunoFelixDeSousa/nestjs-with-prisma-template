@@ -1,0 +1,22 @@
+# Editor configuration, see http://editorconfig.org
+root = true
+
+[*]
+indent_style = space            # Usa espaços em vez de tabs
+indent_size = 2                 # Define a largura do tab como 2 espaços
+end_of_line = lf                # Define a linha de término como LF
+charset = utf-8                 # Define o charset como UTF-8
+trim_trailing_whitespace = true  # Remove espaços em branco no final das linhas
+insert_final_newline = true      # Insere uma nova linha no final do arquivo
+
+[*.js]
+quote_type = single             # Usa aspas simples para strings (not supported directly)
+
+[*.jsx]
+quote_type = single             # Usa aspas simples para JSX (not supported directly)
+
+[*.ts]
+quote_type = single             # Usa aspas simples para strings (not supported directly)
+
+[*.tsx]
+quote_type = single             # Usa aspas simples para JSX (not supported directly)
