@@ -40,11 +40,11 @@ A chave pública (`public_key.pem`) pode ser compartilhada com qualquer pessoa q
 ## Converter a chave privada (private_key.pem) para Base64
 
 ```bash
-base64 private_key.pem -w 0 > private_key_base64.pem
+base64 private_key.pem -w 0 > private_key_base64.txt
 ```
 
 ## Converter a chave pública (public_key.pem) para Base64
 
 ```bash
-base64 public_key.pem -w 0 > public_key_base64.pem
+base64 public_key.pem -w 0 > public_key_base64.txt
 ```
